@@ -33,10 +33,6 @@ module Spider
 
         @threads << t
       end
-
-      while not @stopped #loop forever
-        sleep 30
-      end
     end
 
     def stop
@@ -72,7 +68,7 @@ module Spider
 
               # 计算SHA1摘要
               sum = Digest::SHA1.hexdigest data
-              Page.create :page=>data, :sum=>sum, :indexed=>UNINDEX_TAG
+              Page.create :page=>data, :word=>word, :sum=>sum, :indexed=>UNINDEX_TAG
             rescue Exception => e
               Util.log "Exception found!"
             end

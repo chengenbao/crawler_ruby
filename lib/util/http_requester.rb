@@ -118,13 +118,23 @@ module Util
       client = TCPSocket.open hostname, port
 
       client.print header
-      data = client.read
+
+      data = ''
+      while line = client.gets
+        data << line
+
+        if /^0\r\n$/.match line
+          break
+        end
+      end
+
       client.close
 
       header, data = data.split("\r\n\r\n", 2)
       if header.index('chunked') != nil
         data = merge_chunk_data(data)
       end 
+
       return data
     end
 

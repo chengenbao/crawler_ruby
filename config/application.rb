@@ -47,8 +47,17 @@ Application.config.migration_path = "#{Application.root}/db/migrate"
 
 # spider config
 Application.config.qihu_spider_number=1
-Application.config.min_sleep_time=5
-Application.config.max_sleep_time=30
+Application.config.spider_min_sleep_time=2
+Application.config.spider_max_sleep_time=5
+
+Application.config.baidu_spider_number=1
+
+# indexer config
+Application.config.qihu_indexer_match_reg = /<th><a href="[^<>]+" data-type="0">([^<>i\/]+)<\/a><\/th>/
+Application.config.qihu_indexer_number=1
+Application.config.indexer_min_sleep_time=1
+Application.config.indexer_max_sleep_time=3
+Application.config.baidu_indexer_number=1
 
 Dir.glob("#{Application.root}/lib/*.rb").each do |filename|
   require filename

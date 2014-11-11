@@ -3,6 +3,7 @@ class CreatePages < ActiveRecord::Migration
     create_table :pages do |t|
       t.text :page, :limit => 1000000 # 1MB
       t.string :sum
+      t.string :word
       t.integer :indexed
 
       t.timestamps
