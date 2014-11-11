@@ -13,5 +13,9 @@
 
 
 module Util
-  require './util/http_requester'
+  dirname = "#{File.dirname(__FILE__)}/util"
+
+  Dir.glob("#{dirname}/*.rb").each do |filename|
+    require filename
+  end
 end

@@ -44,3 +44,7 @@ ActiveRecord::Base.establish_connection(Application.config.dbconfig)
 
 # migration path
 Application.config.migration_path = "#{Application.root}/db/migrate"
+
+Dir.glob("#{Application.root}/lib/*.rb").each do |filename|
+  require filename
+end
