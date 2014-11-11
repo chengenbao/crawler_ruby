@@ -8,5 +8,7 @@ class CreateIndexes < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :indexes, :sum, :unique=>true
   end
 end

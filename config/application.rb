@@ -45,6 +45,11 @@ ActiveRecord::Base.establish_connection(Application.config.dbconfig)
 # migration path
 Application.config.migration_path = "#{Application.root}/db/migrate"
 
+# spider config
+Application.config.qihu_spider_number=1
+Application.config.min_sleep_time=5
+Application.config.max_sleep_time=30
+
 Dir.glob("#{Application.root}/lib/*.rb").each do |filename|
   require filename
 end

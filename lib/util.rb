@@ -18,4 +18,8 @@ module Util
   Dir.glob("#{dirname}/*.rb").each do |filename|
     require filename
   end
+
+  def self.log(msg)
+    puts "#{'>' * 30} #{msg} #{'<' * 30}"
+  end
 end
