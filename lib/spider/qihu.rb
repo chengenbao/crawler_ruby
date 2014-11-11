@@ -74,7 +74,6 @@ module Spider
               sum = Digest::SHA1.hexdigest data
               Page.create :page=>data, :sum=>sum, :indexed=>UNINDEX_TAG
             rescue Exception => e
-              puts e
               Util.log "Exception found!"
             end
           end
