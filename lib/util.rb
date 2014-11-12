@@ -33,6 +33,7 @@ module Util
       end
 
       threads << t
+      i += 1
     end
 
     return threads
