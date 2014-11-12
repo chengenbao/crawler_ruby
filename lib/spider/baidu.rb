@@ -50,7 +50,13 @@ module Spider
           field["wd"] = word
           field["ie"] = "utf-8"
 
-          data = @requester.get URL, field
+          data = nil
+
+          begin
+            data = @requester.get URL, field
+          rescue Exception => e
+            Util.log "requester exception"
+          end
 
           if data
             begin
@@ -66,8 +72,8 @@ module Spider
           end
           
         else
-          sleep 1
           Util.log "baidu no words to crawl"
+          sleep time * 2
         end
       end
     end

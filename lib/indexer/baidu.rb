@@ -53,8 +53,6 @@ module Indexer
             index.title = m[0]
             index.word = item.word
             indexes << index
-
-            puts m[0]
           end
 
 
