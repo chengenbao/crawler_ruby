@@ -62,7 +62,7 @@ module Indexer
             i = 0
             match.each do |m|
               indexes[i].url = m[0]
-              sum = Digest::SHA1.hexdigest "#{indexes[i].title}--#{m[0]}"
+              sum = Digest::SHA1.hexdigest "#{indexes[i].title}--#{m[0]}--#{indexes[i].word}"
               indexes[i].sum = sum
               i += 1
             end
