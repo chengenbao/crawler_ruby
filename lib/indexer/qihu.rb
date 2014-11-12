@@ -1,62 +1,28 @@
 #!/usr/bin/env ruby
 
 module Indexer
-  class Qihu
-    UNINDEX_TAG = 0
-    INDEXED_TAG = 2
-
+  class Qihu < Indexer
     def self.instruction
       puts 'I am 360 indexer'
     end
 
-    def initialize(worker_count, min_sleep_time, max_sleep_time, pattern)
-      @worker_count = worker_count
-      @min_sleep_time = min_sleep_time
-      @max_sleep_time = max_sleep_time
-      @pattern = pattern
+    def initialize(worker_count, min_sleep_time, max_sleep_time)
+      super worker_count, min_sleep_time, max_sleep_time
+
+      @unindexed_tag = 0
+      @indexed_tag = 2
+      @name = "Qihu indexer"
     end
 
-    def start
-      @stopped = false
-      @threads = Util.newthreads(@worker_count, self, :process_page)
-    end
+    def index(page, wd)
+      pattern = /<th><a href="[^<>]+" data-type="0">([^<>]+)<\/a><\/th>/
 
-    def stop
-      @stopped = true
-    end
-
-    def process_page
-      while not @stopped
-        time = Random.rand(@max_sleep_time) + @min_sleep_time
-
+      match = page.scan pattern
+      match.each do |word|
         begin
-          item = Page.where(:indexed => UNINDEX_TAG).limit(1)
+          Word.create :word=>word[0], :crawled=>0
         rescue Exception => e
-          Util.log "Can not get page to be indexed"
         end
-
-        if item && item.length > 0
-          sleep time #random sleep
-          item = item[0]
-          page = item[:page]
-
-          match = page.scan @pattern
-          match.each do |word|
-            begin
-              Word.create :word=>word[0], :crawled=>0
-            rescue Exception => e
-            end
-          end
-          # save page
-          begin
-            item[:indexed] = INDEXED_TAG
-            item.save
-          rescue Exception => e
-            Util.log "can not save index page"
-          end
-
-        end 
-
       end
     end
 
