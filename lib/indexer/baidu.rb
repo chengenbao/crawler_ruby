@@ -17,24 +17,13 @@ module Indexer
 
     def start
       @stopped = false
-      @threads = []
-      i = 0
-
-      while i < @worker_count
-        t = Thread.new do
-          process_page
-        end
-
-        i += 1
-        @threads << t
-      end
+      @threads = Util.newthreads(@worker_count, self, :process_page)
     end
 
     def stop
       @stopped = true
     end
 
-    private
     def process_page
       while not @stopped
         time = Random.rand(@max_sleep_time) + @min_sleep_time

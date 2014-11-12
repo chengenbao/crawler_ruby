@@ -60,7 +60,7 @@ Application.config.indexer_max_sleep_time=3
 Application.config.baidu_indexer_number=1
 
 # terminate condition
-Application.config.termininate_words_count = 100000
+Application.config.terminate_words_count=100000
 
 Dir.glob("#{Application.root}/lib/*.rb").each do |filename|
   require filename

@@ -21,23 +21,13 @@ module Spider
     def start()
       @stopped = false
 
-      @threads = []
-      i = 0
-      while (i < @worker_count)
-        t = Thread.new do
-          crawl_data
-        end
-        i+=1
-
-        @threads << t
-      end
+      @threads = Util.newthreads(@worker_count, self, :crawl_data)
     end
 
     def stop
       @stopped = true
     end
 
-    private
     def crawl_data
       while not @stopped
         # random sleep

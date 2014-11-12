@@ -16,9 +16,11 @@ baidu_spider.start
 qihu_indexer.start
 baidu_indexer.start
 
+puts config.terminate_words_count
+
 # loop forever
 while true
-  word_count = Word.count
+  word_count = Word.all.count
 
   if word_count >= config.terminate_words_count
     qihu_indexer.stop

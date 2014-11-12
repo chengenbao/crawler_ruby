@@ -22,4 +22,19 @@ module Util
   def self.log(msg)
     puts "#{'>' * 30} #{msg} #{'<' * 30}"
   end
+
+  def self.newthreads(count, obj, method_name) 
+    threads = [] 
+
+    i = 0
+    while i < count
+      t = Thread.new do
+        obj.send(method_name)
+      end
+
+      threads << t
+    end
+
+    return threads
+  end
 end
