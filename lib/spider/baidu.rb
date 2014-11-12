@@ -67,7 +67,7 @@ module Spider
           
         else
           sleep 1
-          Util.log "no words to crawl"
+          Util.log "baidu no words to crawl"
         end
       end
     end

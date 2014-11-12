@@ -1,7 +1,14 @@
 #!/usr/bin/env ruby
 
-filename = File.dirname(__FILE__) + "/../config/application.rb"
-require "#{File.expand_path(filename)}"
+t = Thread.new do 
+  i = 1
+  while i > 0
+    puts i
+    sleep 1
+    i += 1
+  end
+end
 
-spider = Spider::Qihu.new Application.config.qihu_spider_number, Application.config.min_sleep_time, Application.config.max_sleep_time
-spider.start
+t.join 
+
+puts "hello"
