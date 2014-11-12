@@ -53,7 +53,7 @@ Application.config.spider_max_sleep_time=5
 Application.config.baidu_spider_number=1
 
 # indexer config
-Application.config.qihu_indexer_match_reg = /<th><a href="[^<>]+" data-type="0">([^<>i\/]+)<\/a><\/th>/
+Application.config.qihu_indexer_match_reg = /<th><a href="[^<>]+" data-type="0">([^<>]+)<\/a><\/th>/
 Application.config.qihu_indexer_number=1
 Application.config.indexer_min_sleep_time=1
 Application.config.indexer_max_sleep_time=3
