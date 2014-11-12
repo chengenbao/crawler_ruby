@@ -44,26 +44,30 @@ module Indexer
           page = page.gsub('<font>', '')
           page = page.gsub('</font>', '')
 
-          reg = /<a\s+data-click="[^<>]+"\s+>([^<>]+)<\/a>/
-          match = page.scan reg
-          indexes = []
+          begin
+            reg = /<a\s+data-click="[^<>]+"\s+>([^<>]+)<\/a>/
+              match = page.scan reg
+            indexes = []
 
-          match.each do |m|
-            index = Index.new
-            index.title = m[0]
-            index.word = item.word
-            indexes << index
-          end
+            match.each do |m|
+              index = Index.new
+              index.title = m[0]
+              index.word = item.word
+              indexes << index
+            end
 
 
-          reg = /<span class="g">(\w[\.\w]+\/*)[^<>]+<\/span>/
-          match = page.scan reg
-          i = 0
-          match.each do |m|
-            indexes[i].url = m[0]
-            sum = Digest::SHA1.hexdigest "#{indexes[i].title}--#{m[0]}"
-            indexes[i].sum = sum
-            i += 1
+            reg = /<span class="g">(\w[\.\w]+\/*)[^<>]+<\/span>/
+              match = page.scan reg
+            i = 0
+            match.each do |m|
+              indexes[i].url = m[0]
+              sum = Digest::SHA1.hexdigest "#{indexes[i].title}--#{m[0]}"
+              indexes[i].sum = sum
+              i += 1
+            end
+          rescue Exception => e
+            Util.log "Baidu Indexer exception caught"
           end
 
           indexes.each do |index|
